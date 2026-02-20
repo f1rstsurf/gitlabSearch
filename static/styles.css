@@ -2,13 +2,42 @@
   color-scheme: light;
   --bg-a: #fcf7ef;
   --bg-b: #f2e9da;
+  --orb-a: #f9d8a6;
+  --orb-b: #a8dadc;
   --ink: #191919;
   --accent: #16697a;
   --accent-2: #489fb5;
   --card: rgba(255, 255, 255, 0.88);
   --border: rgba(25, 25, 25, 0.12);
+  --grid: rgba(22, 105, 122, 0.07);
+  --subtitle: rgba(25, 25, 25, 0.78);
+  --meta: rgba(25, 25, 25, 0.72);
+  --branch: rgba(25, 25, 25, 0.6);
+  --input-bg: rgba(255, 255, 255, 0.85);
+  --item-bg: rgba(255, 255, 255, 0.95);
+  --snippet-bg: rgba(22, 105, 122, 0.06);
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-a: #101722;
+  --bg-b: #0f1117;
+  --orb-a: #4b2d14;
+  --orb-b: #0f3d48;
+  --ink: #edf2f7;
+  --accent: #5bb3c7;
+  --accent-2: #8bd0d9;
+  --card: rgba(16, 24, 35, 0.84);
+  --border: rgba(173, 198, 215, 0.22);
+  --grid: rgba(139, 208, 217, 0.08);
+  --subtitle: rgba(237, 242, 247, 0.78);
+  --meta: rgba(237, 242, 247, 0.7);
+  --branch: rgba(237, 242, 247, 0.64);
+  --input-bg: rgba(11, 19, 29, 0.8);
+  --item-bg: rgba(14, 22, 33, 0.96);
+  --snippet-bg: rgba(91, 179, 199, 0.1);
 }
 
 * {
@@ -20,8 +49,8 @@ body {
   min-height: 100vh;
   font-family: var(--sans);
   color: var(--ink);
-  background: radial-gradient(circle at 20% 20%, #f9d8a6 0%, transparent 45%),
-    radial-gradient(circle at 80% 10%, #a8dadc 0%, transparent 40%),
+  background: radial-gradient(circle at 20% 20%, var(--orb-a) 0%, transparent 45%),
+    radial-gradient(circle at 80% 10%, var(--orb-b) 0%, transparent 40%),
     linear-gradient(135deg, var(--bg-a), var(--bg-b));
 }
 
@@ -29,8 +58,8 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(to right, rgba(22, 105, 122, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(22, 105, 122, 0.07) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(transparent 0%, black 15%, black 85%, transparent 100%);
 }
@@ -43,6 +72,23 @@ body {
 
 .hero {
   animation: rise 500ms ease both;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.theme-toggle {
+  padding: 8px 12px;
+  font-size: 13px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .eyebrow {
@@ -66,7 +112,7 @@ body {
   margin-top: 12px;
   max-width: 700px;
   font-size: 18px;
-  color: rgba(25, 25, 25, 0.78);
+  color: var(--subtitle);
 }
 
 .panel {
@@ -107,7 +153,8 @@ input {
   border: 1px solid rgba(25, 25, 25, 0.2);
   font-size: 16px;
   font-family: var(--sans);
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--input-bg);
+  color: var(--ink);
 }
 
 input:focus {
@@ -147,7 +194,7 @@ button:disabled {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: rgba(25, 25, 25, 0.72);
+  color: var(--meta);
 }
 
 .results {
@@ -159,7 +206,7 @@ button:disabled {
 .result-item {
   border: 1px solid rgba(22, 105, 122, 0.22);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--item-bg);
   padding: 14px;
   animation: fade 220ms ease both;
 }
@@ -177,7 +224,7 @@ button:disabled {
 
 .branch {
   font-size: 12px;
-  color: rgba(25, 25, 25, 0.6);
+  color: var(--branch);
 }
 
 .file-link {
@@ -196,7 +243,7 @@ button:disabled {
   font-family: var(--mono);
   font-size: 12px;
   line-height: 1.45;
-  background: rgba(22, 105, 122, 0.06);
+  background: var(--snippet-bg);
   border-radius: 10px;
   padding: 10px;
   overflow-x: auto;

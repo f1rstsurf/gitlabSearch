@@ -22,6 +22,7 @@ type serverConfig struct {
 	GitLabGroupDefault string
 	GitLabBaseURL      string
 	GitLabWebURL       string
+	ThemeDefault       string
 	Port               string
 }
 
@@ -57,6 +58,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/search/stream", streamSearchHandler(cfg))
+	mux.HandleFunc("/api/config", configHandler(cfg))
 	mux.Handle("/", staticHandler())
 
 	addr := ":" + cfg.Port
@@ -92,7 +94,30 @@ func loadConfig() serverConfig {
 		GitLabGroupDefault: groupDefault,
 		GitLabBaseURL:      baseURL,
 		GitLabWebURL:       webURL,
+		ThemeDefault:       normalizeTheme(os.Getenv("APP_THEME")),
 		Port:               port,
+	}
+}
+
+func normalizeTheme(raw string) string {
+	switch strings.ToLower(strings.TrimSpace(raw)) {
+	case "dark":
+		return "dark"
+	default:
+		return "light"
+	}
+}
+
+func configHandler(cfg serverConfig) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(map[string]string{
+			"theme_default": cfg.ThemeDefault,
+		})
 	}
 }
 

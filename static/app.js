@@ -7,10 +7,21 @@ const statusEl = document.getElementById("status");
 const counterEl = document.getElementById("counter");
 const searchBtn = document.getElementById("search-btn");
 const stopBtn = document.getElementById("stop-btn");
+const themeToggleBtn = document.getElementById("theme-toggle");
 const tpl = document.getElementById("result-template");
 
 let abortController = null;
 let count = 0;
+
+initTheme().catch(() => {
+  applyTheme("light");
+});
+
+themeToggleBtn.addEventListener("click", () => {
+  const nextTheme = getActiveTheme() === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  localStorage.setItem("theme_preference", nextTheme);
+});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -166,4 +177,30 @@ function setControlsIdle() {
   searchBtn.disabled = false;
   stopBtn.disabled = true;
   abortController = null;
+}
+
+async function initTheme() {
+  const savedTheme = localStorage.getItem("theme_preference");
+  if (savedTheme === "light" || savedTheme === "dark") {
+    applyTheme(savedTheme);
+    return;
+  }
+
+  const response = await fetch("/api/config");
+  if (!response.ok) {
+    applyTheme("light");
+    return;
+  }
+
+  const payload = await response.json();
+  applyTheme(payload.theme_default === "dark" ? "dark" : "light");
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  themeToggleBtn.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+}
+
+function getActiveTheme() {
+  return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
 }

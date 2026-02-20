@@ -10,6 +10,7 @@ Search `scope=blobs` across a GitLab group, stream matches live, stop anytime, a
 - Stop/abort search from the UI
 - Search by pattern with editable `Group ID`
 - Optional token override in UI
+- Light/Dark mode toggle in UI
 - Secure server-side default token from environment variables
 - Automatic pagination (`X-Next-Page`)
 - Direct links to GitLab files with line anchors
@@ -59,6 +60,7 @@ http://localhost:8080
 | `GITLAB_GROUP_ID` | Yes* | - | Default group ID when UI group is empty |
 | `GITLAB_BASE_URL` | No | `https://gitlab.com/api/v4` | GitLab API base URL |
 | `GITLAB_WEB_URL` | No | Derived from `GITLAB_BASE_URL` | Base URL for clickable file links |
+| `APP_THEME` | No | `light` | Default UI theme (`light` or `dark`) |
 | `PORT` | No | `8080` | Server port |
 
 `*` Required unless you always provide token from UI.
