@@ -1,0 +1,248 @@
+:root {
+  color-scheme: light;
+  --bg-a: #fcf7ef;
+  --bg-b: #f2e9da;
+  --ink: #191919;
+  --accent: #16697a;
+  --accent-2: #489fb5;
+  --card: rgba(255, 255, 255, 0.88);
+  --border: rgba(25, 25, 25, 0.12);
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: radial-gradient(circle at 20% 20%, #f9d8a6 0%, transparent 45%),
+    radial-gradient(circle at 80% 10%, #a8dadc 0%, transparent 40%),
+    linear-gradient(135deg, var(--bg-a), var(--bg-b));
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(22, 105, 122, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 105, 122, 0.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.layout {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+.hero {
+  animation: rise 500ms ease both;
+}
+
+.eyebrow {
+  display: inline-flex;
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(22, 105, 122, 0.12);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.05;
+}
+
+.subtitle {
+  margin-top: 12px;
+  max-width: 700px;
+  font-size: 18px;
+  color: rgba(25, 25, 25, 0.78);
+}
+
+.panel {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 50px rgba(22, 105, 122, 0.1);
+  animation: rise 680ms ease both;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(25, 25, 25, 0.2);
+  font-size: 16px;
+  font-family: var(--sans);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+input:focus {
+  outline: 2px solid rgba(72, 159, 181, 0.4);
+  border-color: var(--accent-2);
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#stop-btn {
+  background: linear-gradient(135deg, #d7263d, #f46036);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.meta {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: rgba(25, 25, 25, 0.72);
+}
+
+.results {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.result-item {
+  border: 1px solid rgba(22, 105, 122, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 14px;
+  animation: fade 220ms ease both;
+}
+
+.result-item header {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.repo {
+  font-size: 16px;
+}
+
+.branch {
+  font-size: 12px;
+  color: rgba(25, 25, 25, 0.6);
+}
+
+.file-link {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.snippet {
+  margin: 10px 0 0;
+  white-space: pre-wrap;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.45;
+  background: rgba(22, 105, 122, 0.06);
+  border-radius: 10px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.status-error {
+  color: #a4161a;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .layout {
+    padding-top: 24px;
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    height: 46px;
+  }
+}

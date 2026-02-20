@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gitlabSearch</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">GitLab Group Blob Search</p>
+        <h1>Find code matches in real time.</h1>
+        <p class="subtitle">Type a pattern and stream results instantly from your configured GitLab group.</p>
+      </section>
+
+      <section class="panel">
+        <form id="search-form" autocomplete="off">
+          <div class="field-grid">
+            <div class="field">
+              <label for="pattern">Pattern</label>
+              <input id="pattern" name="pattern" type="text" placeholder="ex: terraform_deploy" required />
+            </div>
+            <div class="field">
+              <label for="group-id">Group ID</label>
+              <input id="group-id" name="group_id" type="text" placeholder="Leave empty to use server default" />
+            </div>
+            <div class="field full">
+              <label for="token">Token (optional override)</label>
+              <input id="token" name="token" type="password" placeholder="Leave empty to use secure server default token" />
+            </div>
+          </div>
+          <div class="actions">
+            <button id="search-btn" type="submit">Search</button>
+            <button id="stop-btn" type="button" disabled>Stop</button>
+          </div>
+        </form>
+
+        <div class="meta">
+          <span id="status">Idle</span>
+          <span id="counter">0 result</span>
+        </div>
+
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <template id="result-template">
+      <article class="result-item">
+        <header>
+          <strong class="repo"></strong>
+          <span class="branch"></span>
+        </header>
+        <a class="file-link" target="_blank" rel="noreferrer"></a>
+        <pre class="snippet"></pre>
+      </article>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
