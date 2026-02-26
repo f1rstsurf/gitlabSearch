@@ -30,6 +30,16 @@ Search `scope=blobs` across a GitLab group, stream matches live, stop anytime, a
 5. Click `Search` and watch results stream in real time
 6. Click `Stop` to abort instantly
 
+## Demo Screenshots
+
+### Light Mode
+
+![Light mode screenshot](demo/light.png)
+
+### Dark Mode
+
+![Dark mode screenshot](demo/dark.png)
+
 ## Quick Start
 
 ```bash
